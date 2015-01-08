@@ -48,7 +48,7 @@ function createMarkers(data, tabletop) {
     var coordinates = point.coordinates;
     var latitude = coordinates.replace(pattLat, "");
     var longitude = coordinates.replace(pattLon, "");
-    var popupContent = point.place + "<br>" + point.address;
+    var popupContent = point.place + "<br>" + point.address + "<br>Votes: " + point.count;
     // this code will need to go in the if statement
     if (point.type == "Eating") {
       var icon = createIcon('food.png', point.count);
