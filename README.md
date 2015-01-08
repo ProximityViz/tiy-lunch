@@ -11,3 +11,4 @@ Future Additions:
 
 * Icons programmatically change size based on how many people suggested a place
 * Deal better with establishments that are both "drinking" and "eating"
+* Filter by type of restaurant (e.g. Mexican, pizza)

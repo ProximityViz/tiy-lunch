@@ -1,8 +1,9 @@
-var tiyIcon = L.AwesomeMarkers.icon({
-  icon: 'mobile',
-  prefix: 'fa',
-  markerColor: 'black'
-});
+var tiyIcon = L.icon({
+    iconUrl: 'iron-yard-logo.svg',
+    iconSize: [50, 50],
+    iconAnchor: [25, 50],
+    popupAnchor: [0, -50]
+  });
 
 var eatIcon = L.AwesomeMarkers.icon({
   icon: 'cutlery',
