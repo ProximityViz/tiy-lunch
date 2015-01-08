@@ -78,4 +78,17 @@ function createMarkers(data, tabletop) {
   L.marker(new L.LatLng(33.7518732,-84.3914068), {icon: tiyIcon})
     .bindPopup("The Iron Yard")
     .addTo(map);
+
+  // GitHub link
+  var info = L.control({
+    position: 'bottomleft'
+  });
+
+  info.onAdd = function (map) {
+    this._div = L.DomUtil.create('div', 'info'); // create a div with a class "info"
+    this._div.innerHTML = '<a href="https://github.com/mollietaylor/tiy-lunch" target="_blank">Fork me on GitHub!</a>';
+    return this._div;
+  };
+
+  info.addTo(map);
 }
