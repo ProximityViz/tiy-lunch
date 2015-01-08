@@ -5,17 +5,18 @@ var tiyIcon = L.icon({
     popupAnchor: [0, -50]
   });
 
-var eatIcon = L.AwesomeMarkers.icon({
-  icon: 'cutlery',
-  prefix: 'fa',
-  markerColor: 'blue'
-});
+function createIcon(image, count) {
+  var height = Math.round(81 / 3) * count;
+  var width = Math.round(59 / 3) * count;
+  var icon = L.icon({
+    iconUrl: image,
+    iconSize: [width, height],
+    iconAnchor: [width / 2, height],
+    popupAnchor: [0, -1 * height]
+  });
 
-var drinkIcon = L.AwesomeMarkers.icon({
-  icon: 'beer',
-  prefix: 'fa',
-  markerColor: 'darkgreen'
-});
+  return icon;
+}
 
 var map = L.map('map', {
   center: new L.LatLng(33.7518732,-84.3914068), 
@@ -50,11 +51,13 @@ function createMarkers(data, tabletop) {
     var popupContent = point.place + "<br>" + point.address;
     // this code will need to go in the if statement
     if (point.type == "Eating") {
-      var marker = L.marker(new L.LatLng(latitude, longitude), {icon: eatIcon});
+      var icon = createIcon('food.png', point.count);
+      var marker = L.marker(new L.LatLng(latitude, longitude), {icon: icon});
       marker.bindPopup(popupContent);
       marker.addTo(eatingLayer);
     } else if (point.type == "Drinking") {
-      var marker = L.marker(new L.LatLng(latitude, longitude), {icon: drinkIcon});
+      var icon = createIcon('beer.png', point.count);
+      var marker = L.marker(new L.LatLng(latitude, longitude), {icon: icon});
       marker.bindPopup(popupContent);
       marker.addTo(drinkingLayer);
     };
@@ -63,8 +66,8 @@ function createMarkers(data, tabletop) {
   drinkingLayer.addTo(map);
 
   var overlayMaps = {
-    "Eating": eatingLayer,
-    "Drinking": drinkingLayer
+    "<img src='food.png' height=24>Eating": eatingLayer,
+    "<img src='beer.png' height=24>Drinking": drinkingLayer
   };
 
   L.control.layers(null, overlayMaps, {
