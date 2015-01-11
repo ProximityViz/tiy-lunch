@@ -5,6 +5,13 @@ var tiyIcon = L.icon({
     popupAnchor: [0, -50]
   });
 
+var trainIcon = L.AwesomeMarkers.icon({
+  icon: 'fa-bus',
+  prefix: 'fa',
+  markerColor: 'darkpurple',
+  iconColor: 'white'
+});
+
 function createIcon(image, count) {
   var height = Math.round(81 / 3) * count;
   var width = Math.round(59 / 3) * count;
@@ -25,6 +32,13 @@ var map = L.map('map', {
 
 new L.TileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
   attribution: '<a href="http://proximityviz.com/">Proximity Viz</a> | &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>'
+}).addTo(map);
+
+var MARTALayer = new L.geoJson(martaStations, {
+  onEachFeature: function(feature, layer) {layer.bindPopup(feature.properties.Description)},
+  pointToLayer: function(feature, latlng) {
+    return L.marker(latlng, {icon: trainIcon});
+  }
 }).addTo(map);
 
 window.onload = function() { init() };
@@ -66,8 +80,9 @@ function createMarkers(data, tabletop) {
   drinkingLayer.addTo(map);
 
   var overlayMaps = {
-    "<img src='food.png' height=24>Eating": eatingLayer,
-    "<img src='beer.png' height=24>Drinking": drinkingLayer
+    "<i class='fa fa-cutlery' style='color:#0069A1'></i> Eating": eatingLayer,
+    "<i class='fa fa-beer' style='color:#8E9134'></i> Drinking": drinkingLayer,
+    "<i class='fa fa-bus' style='color:#593869'></i> Train Stations": MARTALayer
   };
 
   L.control.layers(null, overlayMaps, {
